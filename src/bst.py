@@ -53,11 +53,11 @@ class BST(object):
     def search(self, val):
         """Create search method to find value in BST."""
         if self.root is None or not isinstance(val, (int, float)):
-            return
+            raise ValueError('Node does not exist')
         curr = self.root
         while curr:
             if val == curr.data:
-                return curr
+                return curr.data
             elif val < curr.data:
                 curr = curr.left
             elif val > curr.data:
