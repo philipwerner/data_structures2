@@ -13,7 +13,6 @@ def sample_bst():
 def filled_bst():
     """Make a filled BST."""
     return BST([10, 7, 12, 23, 2, 1.1, 89, 36, 9.8])
-    
 
 
 def test_size_is_callable(sample_bst):
@@ -71,20 +70,50 @@ def test_search_existing_node(filled_bst):
     assert filled_bst.search(23) == 23
 
 
-def test_depth_of_empty_bst(sample_bst):
-    """Test depth method on empty bst returns 0."""
-    assert sample_bst.depth(1) == 0
+# def test_search_when_node_does_not_exist(filled_bst):
+#     """Test searching for nonexistint node."""
+#     result = filled_bst.search(999)
+#     assert result is False
+
+
+# def test_depth_of_empty_bst(sample_bst):
+#     """Test depth method on empty bst returns 0."""
+#     assert sample_bst.depth() == NoneType
 
 
 def test_depth_with_one_node(sample_bst):
     """Test depth method with one node returns 0."""
     sample_bst.insert(9)
-    assert sample_bst.depth(9) == 0
+    assert sample_bst.depth() == 0
 
 
 def test_depth_with_multiple_nodes(filled_bst):
     """Test depth of filled bst."""
-    assert filled_bst.depth(23) == 2
+    assert filled_bst.depth() == 4
 
 
+def test_contains_with_node_in_bst(filled_bst):
+    """Test that true is returned when node contained."""
+    assert filled_bst.contains(10) is True
 
+
+def test_containw_without_node_in_bst(filled_bst):
+    """Test that false is returned when node not contained."""
+    assert filled_bst.contains(999) is False
+
+
+def test_balance_is_positive(filled_bst):
+    """Test positive balance."""
+    assert filled_bst.balance() == 2
+
+
+def test_balance_is_negative():
+    """Test negative balance."""
+    a = BST([5, 4, 3, 2, 1, 6])
+    assert a.balance() == -3
+
+
+def test_balance_is_even():
+    """Test for balance of 0."""
+    a = BST([5, 4, 6, 3, 7, 2, 8])
+    assert a.balance() == 0

@@ -4,7 +4,7 @@
 class Node(object):
     """A single node."""
 
-    def __init__(self, data, left=None, right=None):
+    def __init__(self, data, left=None, right=None, parent=None, depth=1):
         """Construct a new Node."""
         self.data = data
         self.left = left
@@ -21,6 +21,10 @@ class BST(object):
         if isinstance(iterable, (list, tuple)):
             for item in iterable:
                 self.insert(item)
+
+        self.depths_list = []
+        self.left_depths_list = []
+        self.right_depths_list = []
 
     def insert(self, val):
         """Create a insert method."""
@@ -39,14 +43,14 @@ class BST(object):
                 if curr.left:
                     curr = curr.left
                 else:
-                    curr.left = Node(val)
+                    curr.left = Node(val, None, None, curr)
                     self._count += 1
                     break
             elif val > curr.data:
                 if curr.right:
                     curr = curr.right
                 else:
-                    curr.right = Node(val)
+                    curr.right = Node(val, None, None, curr)
                     self._count += 1
                     break
 
@@ -67,18 +71,23 @@ class BST(object):
         """Create size method to return size of bst."""
         return self._count
 
-    def depth(self, root):
-        """Create method to return bst depth."""
-        if root is None:
-            return 0
-        if not self.root.left and not self.root.right:
-            return 0
-        elif self.root.left and not self.root.right:
-            return self.depth(self.root.left) + 1
-        elif self.root.right and not self.root.left:
-            return self.depth(self.root.right) + 1
-        else:
-            return max(self.depth(self.root.left), self.depth(self.root.right)) + 1
+    def depth(self):
+        """Return depth."""
+        self.depths_list = []
+        depth = 0
+        if self.root:
+            self._depth_func(self.root, depth)
+            return max(self.depths_list)
+        return depth
+
+    def _depth_func(self, current, depth):
+        if current.right is None and current.left is None:
+            self.depths_list.append(depth)
+            return
+        if current.right:
+            return self._depth_func(current.right, depth + 1)
+        if current.left:
+            return self._depth_func(current.left, depth + 1)
 
     def contains(self, val):
         """Create method to find if an individual node exists."""
@@ -88,14 +97,17 @@ class BST(object):
             return False
 
     def balance(self):
-        """Create method that returns how the BST is balanced."""
-        if self.root is None:
-            return 'The tree is empty.'
-        elif not self.root.left and self.root.right:
-            return 0
-        elif self.root.left and not self.root.right:
-            return self.depth(self.root.left)
-        elif self.root.right and not self.root.left:
-            return self.depth(self.root.right)
-        else:
-            return self.depth(self.root.right) - self.depth(self.root.left)
+        """Return tree balance."""
+        self.depths_list = []
+        left_depth = 0
+        if self.root.left:
+            self._depth_func(self.root.left, left_depth + 1)
+            left_depth = max(self.depths_list)
+
+        self.depths_list = []
+        right_depth = 0
+        if self.root.right:
+            self._depth_func(self.root.right, right_depth + 1)
+            right_depth = max(self.depths_list)
+
+        return right_depth - left_depth
