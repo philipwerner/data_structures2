@@ -117,3 +117,18 @@ def test_balance_is_even():
     """Test for balance of 0."""
     a = BST([5, 4, 6, 3, 7, 2, 8])
     assert a.balance() == 0
+
+
+def test_bft(filled_bst):
+    """Test that BFT iterates."""
+    iterate = filled_bst.bft()
+    assert next(iterate) == 10
+    assert next(iterate) == 7
+    assert next(iterate) == 12
+
+
+def test_bft_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.bft()
+    with pytest.raises(ValueError):
+        next(a)

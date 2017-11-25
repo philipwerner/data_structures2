@@ -112,6 +112,19 @@ class BST(object):
 
         return right_depth - left_depth
 
+    def bft(self):
+        """Use a generator with breadth first traversal."""
+        if self.root is None:
+            raise ValueError('The tree is empty')
+        breadth = [self.root]
+        while breadth:
+            curr = breadth.pop(0)
+            if curr.left:
+                breadth.append(curr.left)
+            if curr.right:
+                breadth.append(curr.right)
+            yield curr.data
+
 
 if __name__ == '__main__':  # pragma: no cover
     import timeit
