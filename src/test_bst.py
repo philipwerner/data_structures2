@@ -205,3 +205,29 @@ def test_pre_ordered_stop_iteration():
         next(b)
         next(b)
         next(b)
+
+
+def test_post_order(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.post_order()
+    assert next(a) == 1.1
+    assert next(a) == 2
+    assert next(a) == 9.8
+
+
+def test_post_order_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.post_order()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_post_order_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.post_order()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)

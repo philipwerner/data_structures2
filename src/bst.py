@@ -155,6 +155,24 @@ class BST(object):
             else:
                 curr = searched.pop()
 
+    def post_order(self):
+        """."""
+        curr = self.root
+        searched = []
+        child = None
+        if self.root is None:
+            raise ValueError('The tree is empty')
+        while curr or searched:
+            if curr:
+                searched.append(curr)
+                curr = curr.left
+            else:
+                if searched[-1].right and searched[-1].right is not child:
+                    curr = searched[-1].right
+                else:
+                    child = searched.pop()
+                    yield child.data
+
 
 if __name__ == '__main__':  # pragma: no cover
     import timeit
