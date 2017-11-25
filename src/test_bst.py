@@ -179,3 +179,29 @@ def test_ordered_with_floats():
     assert next(b) == 1.4
     assert next(b) == 1.8
     assert next(b) == 1.9
+
+
+def test_pre_ordered(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.pre_ordered()
+    assert next(a) == 10
+    assert next(a) == 7
+    assert next(a) == 2
+
+
+def test_pre_ordered_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.pre_ordered()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_pre_ordered_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.pre_ordered()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
