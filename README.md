@@ -1,5 +1,5 @@
 # Data-Structures
-
+[![Build Status](https://travis-ci.org/philipwerner/data_structures2.svg?branch=bst)](https://travis-ci.org/philipwerner/data_structures2)
 
 
 ## Author
