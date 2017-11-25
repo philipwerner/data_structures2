@@ -132,3 +132,50 @@ def test_bft_on_empty_tree(sample_bst):
     a = sample_bst.bft()
     with pytest.raises(ValueError):
         next(a)
+
+
+def test_bft_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.bft()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
+
+
+def test_ordered(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.ordered()
+    assert next(a) == 1.1
+    assert next(a) == 2
+    assert next(a) == 7
+
+
+def test_ordered_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.ordered()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_ordered_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.ordered()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
+
+
+def test_ordered_with_floats():
+    """Test floats are returned properly."""
+    a = BST([1.8, 1.4, 1.9, 1.2])
+    b = a.ordered()
+    assert next(b) == 1.2
+    assert next(b) == 1.4
+    assert next(b) == 1.8
+    assert next(b) == 1.9

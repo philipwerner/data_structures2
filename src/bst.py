@@ -125,6 +125,36 @@ class BST(object):
                 breadth.append(curr.right)
             yield curr.data
 
+    def ordered(self):
+        """Use generator for an ordered search."""
+        curr = self.root
+        searched = []
+        if self.root is None:
+            raise ValueError('The tree is empty')
+        while curr or searched:
+            if curr:
+                searched.append(curr)
+                curr = curr.left
+            else:
+                curr = searched.pop()
+                yield curr.data
+                curr = curr.right
+
+    def pre_ordered(self):
+        """."""
+        curr = self.root
+        searched = []
+        if self.root is None:
+            raise ValueError('The tree is empty')
+        while curr or searched:
+            if curr:
+                yield curr.data
+                if curr.right:
+                    searched.append(curr.right)
+                curr = curr.left
+            else:
+                curr = searched.pop()
+
 
 if __name__ == '__main__':  # pragma: no cover
     import timeit
