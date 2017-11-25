@@ -111,3 +111,58 @@ class BST(object):
             right_depth = max(self.depths_list)
 
         return right_depth - left_depth
+
+
+if __name__ == '__main__':  # pragma: no cover
+    import timeit
+
+    insert_time_ub = BST()
+    num = (x for x in range(1000))
+    a = timeit.timeit('insert_time_ub.insert(next(num))',
+                      setup='from __main__ import insert_time_ub, num',
+                      number=1000)
+    search_time_ub = BST()
+    for i in range(100):
+        search_time_ub.insert(i)
+    b = timeit.timeit('search_time_ub.search(99)',
+                      setup='from __main__ import search_time_ub',
+                      number=1000)
+    c = timeit.timeit('search_time_ub.search(0)',
+                      setup='from __main__ import search_time_ub',
+                      number=1000)
+    insert_time_b = BST()
+
+    def insert_time(val):
+        """."""
+        if (500 + val) % 2 == 0:
+            insert_time_b.insert(500 + val)
+        else:
+            insert_time_b.insert(500 - val)
+
+    num_b = (x for x in range(1000))
+    d = timeit.timeit('insert_time(next(num_b))',
+                      setup='from __main__ import insert_time, num_b',
+                      number=1000)
+
+    search_time_b = BST()
+    for i in range(1000):
+        if (500 + i) % 2 == 0:
+            search_time_b.insert(500 + i)
+        else:
+            search_time_b.insert(500 - i)
+    e = timeit.timeit('search_time_b.search(999)',
+                      setup='from __main__ import search_time_b',
+                      number=1000)
+    f = timeit.timeit('search_time_b.search(500)',
+                      setup='from __main__ import search_time_b',
+                      number=1000)
+
+    print('The following time relates to worst case insert.')
+    print('Insert unbalanced: {}'.format(a))
+    print('Insert balanced: {}'.format(d))
+    print('\nThe following time relates to worst case search.')
+    print('Search unbalanced leaf: {}'.format(b))
+    print('Search balanced leaf: {}'.format(e))
+    print('\nThe following time relates to best base search.')
+    print('Search unbalanced head: {}'.format(c))
+    print('Search balanced head: {}'.format(f))
