@@ -28,3 +28,6 @@ search() : O(n)
 size() : O(1)
 depth() : O(n)
 balance() : O(n)
+
+### Binary Search Tree Traversal
+bft() : O(n)
