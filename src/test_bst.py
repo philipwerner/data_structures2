@@ -117,3 +117,117 @@ def test_balance_is_even():
     """Test for balance of 0."""
     a = BST([5, 4, 6, 3, 7, 2, 8])
     assert a.balance() == 0
+
+
+def test_bft(filled_bst):
+    """Test that BFT iterates."""
+    iterate = filled_bst.bft()
+    assert next(iterate) == 10
+    assert next(iterate) == 7
+    assert next(iterate) == 12
+
+
+def test_bft_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.bft()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_bft_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.bft()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
+
+
+def test_ordered(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.ordered()
+    assert next(a) == 1.1
+    assert next(a) == 2
+    assert next(a) == 7
+
+
+def test_ordered_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.ordered()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_ordered_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.ordered()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
+
+
+def test_ordered_with_floats():
+    """Test floats are returned properly."""
+    a = BST([1.8, 1.4, 1.9, 1.2])
+    b = a.ordered()
+    assert next(b) == 1.2
+    assert next(b) == 1.4
+    assert next(b) == 1.8
+    assert next(b) == 1.9
+
+
+def test_pre_ordered(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.pre_ordered()
+    assert next(a) == 10
+    assert next(a) == 7
+    assert next(a) == 2
+
+
+def test_pre_ordered_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.pre_ordered()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_pre_ordered_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.pre_ordered()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
+
+
+def test_post_order(filled_bst):
+    """Test a ordered list is returned."""
+    a = filled_bst.post_order()
+    assert next(a) == 1.1
+    assert next(a) == 2
+    assert next(a) == 9.8
+
+
+def test_post_order_on_empty_tree(sample_bst):
+    """Test value error is raised on empty tree."""
+    a = sample_bst.post_order()
+    with pytest.raises(ValueError):
+        next(a)
+
+
+def test_post_order_stop_iteration():
+    """Test that iteration stops."""
+    a = BST([1, 2, 4])
+    b = a.post_order()
+    with pytest.raises(StopIteration):
+        next(b)
+        next(b)
+        next(b)
+        next(b)
